@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace api.Controllers;
+namespace api.Controller;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
-public class TestController : ControllerBase
+public class ProductController : ControllerBase
 {
-    [Authorize]
-    [HttpGet("me")]
-    public IActionResult Me()
+    [HttpGet("productcreate")]
+    public IActionResult create()
     {
         return Ok(new
         {
@@ -19,4 +19,5 @@ public class TestController : ControllerBase
             Email = User.FindFirst(ClaimTypes.Email)?.Value
         });
     }
+
 }

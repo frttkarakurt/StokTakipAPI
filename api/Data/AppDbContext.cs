@@ -13,6 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<User> Users => Set<User>();
 
     public DbSet<Company> Companies => Set<Company>();
+    public DbSet<Product> Product => Set<Product>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -25,6 +26,10 @@ public class AppDbContext : DbContext
             .HasIndex(x => x.Email)
             .IsUnique();
 
+        modelBuilder.Entity<Product>()
+            .HasOne(p => p.Company)
+            .WithMany(c => c.Products)
+            .HasForeignKey(p => p.CompanyId);
 
         base.OnModelCreating(modelBuilder);
     }
